@@ -21,9 +21,10 @@ from types import *
 from AccessControl import getSecurityManager, ClassSecurityInfo
 from App.Common import rfc1123_date
 from DateTime import DateTime
-from Globals import InitializeClass
+from AccessControl.class_init import InitializeClass
 from OFS.DTMLDocument import DTMLDocument
 import Permissions
+from zope.interface import implements
 from Defaults import AUTO_UPGRADE, IDS_TO_AVOID, \
      PAGE_METATYPE, LINK_TO_ALL_CATALOGED, LINK_TO_ALL_OBJECTS, \
      WIKINAME_LINKS, BRACKET_LINKS, DOUBLE_BRACKET_LINKS, \
@@ -105,7 +106,7 @@ class ZWikiPage(
         __implements__ = (WriteLockInterface, PageCMFSupport.__implements__)
     else:
         from webdav.interfaces import IWriteLock
-        __implements__ = (IWriteLock, PageCMFSupport.__implements__)
+        implements(IWriteLock)
 
     security = ClassSecurityInfo()
     security.declareObjectProtected('View')

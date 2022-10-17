@@ -9,24 +9,20 @@ from urllib import quote, unquote
 from Acquisition import aq_base
 from AccessControl import getSecurityManager, ClassSecurityInfo
 from App.Common import absattr
-from Globals import InitializeClass
+from AccessControl.class_init import InitializeClass
 from OFS.SimpleItem import SimpleItem
 import zLOG
 from DateTime import DateTime
 try: # zope 2.7
-    from DateTime import SyntaxError
+    from DateTime.DateTime import SyntaxError
     DateTimeSyntaxError = SyntaxError()
 except ImportError:
     DateTimeSyntaxError = DateTime.SyntaxError
-try:
-    path = os.path.join(SOFTWARE_HOME,'Zope2','version.txt') # >=2.9
-    if not os.path.exists(path):
-        path = os.path.join(SOFTWARE_HOME,'version.txt') # <= 2.8
-    v = open(path).read()
-    m = re.match(r'(?i)zope\s*([0-9]+)\.([0-9]+)\.([0-9]+)',v)
-    ZOPEVERSION = (int(m.group(1)),int(m.group(2)),int(m.group(3)))
-except (IOError, AttributeError): # AttributeError: regex didn't match
-    ZOPEVERSION = (9,9,9) # (cvs)
+
+from App.version_txt import getZopeVersion
+# getZopeVersion => (major, minor, micro, status, release)
+# ZOPEVERSION: major, minor, micro
+ZOPEVERSION = getZopeVersion()[:3]
 
 from Products.ZWiki import __version__
 from Defaults import PREFER_USERNAME_COOKIE, PAGE_METADATA, BORING_PAGES, \

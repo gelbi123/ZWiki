@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: Zwiki
+Version: 2.0b1
+Summary: Zwiki, the Zope-based wiki engine.
+Home-page: http://zwiki.org
+Author: Simon Michael & co.
+Author-email: simon@joyful.com
+License: GPL
+Description: Zwiki, the Zope-based wiki engine.
+Keywords: wiki zope
+Platform: UNKNOWN

@@ -91,7 +91,8 @@ import os
 from App.Common import rfc1123_date
 from AccessControl import getSecurityManager, ClassSecurityInfo, Unauthorized
 from OFS.Image import File
-from Globals import InitializeClass, MessageDialog
+from AccessControl.class_init import InitializeClass
+from App.Dialogs import MessageDialog
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 from Products.PageTemplates.Expressions import SecureModuleImporter
@@ -279,6 +280,7 @@ TEMPLATES = SKINS['zwiki'] # backwards compatibility
 MACROS = {} # a flat dictionary of all macros defined in all templates
 # need to initialise it for some backwards compatibility assignments at startup
 [MACROS.update(t.pt_macros()) for t in TEMPLATES.values() if isPageTemplate(t)]
+
 def getmacros(self):
     """
     Get a dictionary of all the page template macros in the skin. More precisely,

@@ -9,10 +9,11 @@ import re, os.path, string, urllib
 
 from AccessControl import getSecurityManager
 from DateTime import DateTime
-from Globals import package_home, MessageDialog, ImageFile
+from App.Common import package_home
+from App.Dialogs import MessageDialog
+from App.ImageFile import ImageFile
 from OFS.Folder import Folder
 from OFS.Image import Image, File
-from OFS.ObjectManager import customImporters
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 from Products.PythonScripts.PythonScript import PythonScript
 
@@ -357,8 +358,8 @@ def createFilesFromFsFolder(self, f, dir):
                 f._getOb(id).write(text)
             elif type == 'zexp' or type == 'xml':
                 connection = self.getPhysicalRoot()._p_jar
-                f._setObject(id, connection.importFile(dir + os.sep + filename, 
-                    customImporters=customImporters))
+                f._setObject(id, connection.importFile(
+                    dir + os.sep + filename))
                 #self._getOb(id).manage_changeOwnershipType(explicit=0)
             elif type in ['jpg','jpeg','gif','png']:
                 f._setObject(filename, Image(filename, '', text))

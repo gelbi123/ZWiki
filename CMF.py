@@ -2,7 +2,7 @@
 # See also __init__.py and Extensions/Install.py
 
 #from types import *
-from Globals import InitializeClass
+from AccessControl.class_init import InitializeClass
 from Utils import safe_hasattr
 
 try:
@@ -53,7 +53,6 @@ else:
         We use our own similar attributes..
         XXX maybe we can always use dublin core and simplify.
         """
-        __implements__ = DefaultDublinCoreImpl.__implements__ 
 
         security = ClassSecurityInfo()
         security.declarePrivate('setModificationDate')
@@ -100,8 +99,6 @@ else:
         """
         Mix-in class for CMF support
         """
-        __implements__ = ZwikiDublinCoreImpl.__implements__ + \
-                         PortalContent.__implements__
    
         portal_type = PAGE_PORTALTYPE
         # provide this so DublinCore.Format works with old instances
