@@ -805,7 +805,7 @@ class SkinViews:
         form = self.getSkinTemplate('stylesheet',suffixes=['.css',''])
         if isFile(form):
             if self.handle_modified_headers(
-                last_mod=form.bobobase_modification_time(), REQUEST=REQUEST):
+                last_mod=DateTime(form.last_modified(form)), REQUEST=REQUEST):
                 return ''
             else:
                 return form.index_html(REQUEST,REQUEST.RESPONSE)

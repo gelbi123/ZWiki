@@ -198,7 +198,7 @@ class PageAdminSupport:
         # in all cases.. will cause a lot of bobobase_mod_time
         # updates.. do it anyway.
         if not self.last_edit_time:
-            self.last_edit_time = self.bobobase_modification_time().ISO8601()
+            self.last_edit_time = DateTime(self.last_modified(self)).ISO8601()
             changed = 1
         elif type(self.last_edit_time) is not StringType:
             self.last_edit_time = self.last_edit_time.ISO8601()
