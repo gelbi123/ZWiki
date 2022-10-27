@@ -90,6 +90,7 @@ import os
 
 from App.Common import rfc1123_date
 from AccessControl import getSecurityManager, ClassSecurityInfo, Unauthorized
+from DateTime import DateTime
 from OFS.Image import File
 from AccessControl.class_init import InitializeClass
 from App.Dialogs import MessageDialog
