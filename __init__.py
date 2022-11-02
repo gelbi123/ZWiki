@@ -87,10 +87,8 @@ def initialize(context):
                 manage_addWikiForm,
                 manage_addWiki,
                 listWikis,
-                listZodbWikis,
                 listFsWikis,
                 addWikiFromFs,
-                addWikiFromZodb,
                 )
             )
         initializeForCMF(context)
@@ -277,8 +275,6 @@ def manage_addWiki(self, new_id, new_title='', wiki_type='basic',
     else:
         if wiki_type in self.listFsWikis():
             self.addWikiFromFs(new_id,new_title,wiki_type,REQUEST)
-        elif wiki_type in self.listZodbWikis():
-            self.addWikiFromZodb(new_id,new_title,wiki_type,REQUEST)
         else:
             if REQUEST:
                 return MessageDialog(
@@ -304,23 +300,6 @@ def manage_addWiki(self, new_id, new_title='', wiki_type='basic',
                 REQUEST.RESPONSE.redirect(u+'/manage_main?update_menu=1')
         else: # we're called programmatically through xx.manage_addProduct...
             return new_id
-
-def addWikiFromZodb(self,new_id, new_title='', wiki_type='basic',
-                        REQUEST=None):
-    """
-    Create a new zwiki web by cloning the specified template
-    in /Control_Panel/Products/ZWiki
-    """
-    # locate the specified wiki prototype
-    # these are installed in /Control_Panel/Products/ZWiki
-    prototype = self.getPhysicalRoot().Control_Panel.Products.ZWiki[wiki_type]
-
-    # clone it
-    self.manage_clone(prototype, new_id, REQUEST)
-    wiki = getattr(self, new_id)
-    wiki.manage_changeProperties(title=new_title)
-    # could do stuff with ownership here
-    # set it to low-privileged "nobody" by default ?
 
 def createFilesFromFsFolder(self, f, dir):
     """
@@ -424,21 +403,11 @@ def addZWikiPage(self, id, title='',
 
 def listWikis(self):
     """
-    list all wiki templates available in the filesystem or zodb
+    list all wiki templates sorted (only from fs)
     """
     wikis = self.listFsWikis()
-    for w in self.listZodbWikis():
-        if not w in wikis: wikis.append(w)
     wikis.sort()
     return wikis
-
-def listZodbWikis(self):
-    """
-    list the wiki templates available in the ZODB
-    """
-    list = self.getPhysicalRoot().Control_Panel.Products.ZWiki.objectIds()
-    list.remove('Help')
-    return list
 
 def listFsWikis(self):
     """
