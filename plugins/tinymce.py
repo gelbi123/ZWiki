@@ -20,7 +20,12 @@ class TinyMCESupport:
     security.declareProtected(Permissions.View, 'tinyMCEInstalled')
     def tinyMCEInstalled(self):
         """Is TinyMCE installed and configured?"""
-        installed = 'ZTinyMCE' in self.Control_Panel.Products.objectIds()
+        #temporary fix for Zope4 where self.Control_Panel.Products
+        #does not exists
+        try:
+            installed = 'ZTinyMCE' in self.Control_Panel.Products.objectIds()
+        except AttributeError:
+            installed = None
         return installed and getattr(self, 'tinymce.conf', None) is not None
 
     security.declareProtected(Permissions.View, 'supportsTinyMCE')
