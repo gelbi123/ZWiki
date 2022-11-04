@@ -1,5 +1,10 @@
+<!--<html metal:use-macro="here/main_template/macros/master" i18n:domain="zwiki"
+  tal:define="title python:container.title and gettext('Wiki contents for')+' '+container.title or gettext('Wiki contents')
+# XXX splicing translated and dynamic text - how to pass title in to fill-slot ?
+# XXX for now, complicated spans
+">-->
 <html metal:use-macro="here/main_template/macros/master" i18n:domain="zwiki"
-      tal:define="title python:container.title and gettext('Wiki contents for')+' '+container.title or gettext('Wiki contents')
+  tal:define="title python:container.title
 # XXX splicing translated and dynamic text - how to pass title in to fill-slot ?
 # XXX for now, complicated spans
 ">
