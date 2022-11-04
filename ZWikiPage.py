@@ -1273,7 +1273,7 @@ class ZWikiPage(
         name utf-8-encoded.
         """
         return (self.pageWithId(self.canonicalIdFrom(name),url_quoted) or
-                self.pageWithId(self.canonicalIdFrom(self.toencoded(name,'utf-8')),url_quoted))
+                self.pageWithId(self.canonicalIdFrom(name and self.toencoded(name,'utf-8')),url_quoted))
 
     security.declareProtected(Permissions.View, 'pageWithNameOrId')
     def pageWithNameOrId(self,name,url_quoted=0):
