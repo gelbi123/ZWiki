@@ -172,7 +172,9 @@ ZwikiRstPageType = PageTypeRst
 # procedure and make it work now by hook or by crook.  The following
 # is based on ZPL-licensed code from lib/python/reStructuredText/__init__.py.
 
-from reStructuredText import sys, getConfiguration, publish_parts, Warnings
+import sys
+from App.config import getConfiguration
+from docutils.core import publish_parts
 
 # get encoding
 default_enc = sys.getdefaultencoding()
@@ -187,6 +189,14 @@ initial_header_level = getConfiguration().rest_header_level or default_level
 # elements
 default_lang = 'en'
 default_language_code = getConfiguration().rest_language_code or default_language
+
+class Warnings:
+
+    def __init__(self):
+        self.messages = []
+
+    def write(self, message):
+        self.messages.append(message)
 
 def render(src,
            writer='html4css1',
