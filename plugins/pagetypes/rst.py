@@ -308,6 +308,9 @@ def HTML(src,
     warnings = ''.join(warning_stream.messages)
 
     if output_encoding != 'unicode':
-        return output.encode(output_encoding)
+        try:
+            return output.encode(output_encoding)
+        except UnicodeEncodeError:
+            return output.encode('utf-8')
     else:
         return output
